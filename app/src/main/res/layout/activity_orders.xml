@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F6F8F3"
+    tools:context=".ProfileScreen.profilepages.OrdersActivity">
+
+    <!-- SIMPLE HEADER (NO CURVE) -->
+    <LinearLayout
+        android:id="@+id/simpleHeader"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:background="@color/topBar"
+    android:paddingHorizontal="16dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintEnd_toEndOf="parent">
+
+    <ImageView
+        android:id="@+id/backArrow"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:src="@drawable/ic_arrow_back"
+        app:tint="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/headerTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Grocery Orders"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginStart="12dp" />
+</LinearLayout>
+
+    <!-- Scrollable List -->
+<ScrollView
+android:layout_width="0dp"
+android:layout_height="0dp"
+android:padding="16dp"
+app:layout_constraintTop_toBottomOf="@id/simpleHeader"
+app:layout_constraintBottom_toBottomOf="parent"
+app:layout_constraintStart_toStartOf="parent"
+app:layout_constraintEnd_toEndOf="parent">
+
+<LinearLayout
+    android:id="@+id/orderContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <!-- ===================== ORDER 1 (Delivered) ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grocery_order_card"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/fruit"
+            android:background="@drawable/grocery_icon_bg"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fresh Fruits Pack"
+                android:textStyle="bold"
+                android:textColor="#1A2D1A"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivered on 10 Dec 2024"
+                android:textColor="#6E7B6E"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Delivered"
+                android:textColor="#2E7D32"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:background="@drawable/status_chip_green"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹499"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#1A2D1A" />
+    </LinearLayout>
+
+    <!-- ===================== ORDER 2 (Out for Delivery) ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grocery_order_card"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_marginBottom="18dp">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/veg1"
+            android:background="@drawable/grocery_icon_bg"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fresh Vegetables Basket"
+                android:textStyle="bold"
+                android:textColor="#1A2D1A"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="In Transit • ETA 2 hrs"
+                android:textColor="#6E7B6E"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Out for Delivery"
+                android:textColor="#FF8C00"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:background="@drawable/status_chip_green"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹299"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#1A2D1A" />
+    </LinearLayout>
+
+    <!-- ===================== ORDER 3 (Cancelled) ===================== -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/grocery_order_card"
+        android:padding="16dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:src="@drawable/bread"
+            android:background="@drawable/grocery_icon_bg"
+            android:padding="10dp" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_marginStart="14dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Daily Essentials Combo"
+                android:textStyle="bold"
+                android:textColor="#1A2D1A"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelled • Payment Refunded"
+                android:textColor="#6E7B6E"
+                android:textSize="13sp"
+                android:layout_marginTop="4dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Cancelled"
+                android:textColor="#C62828"
+                android:textStyle="bold"
+                android:textSize="12sp"
+                android:background="@drawable/status_chip_green"
+                android:paddingHorizontal="14dp"
+                android:paddingVertical="4dp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹799"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:textColor="#1A2D1A" />
+    </LinearLayout>
+
+</LinearLayout>
+</ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>

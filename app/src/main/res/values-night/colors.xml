@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--     this is for profile page activity-->
+    <!-- Backgrounds -->
+    <color name="colorBackground">#121212</color>   <!-- Dark background -->
+    <color name="colorSurface">#1E1E1E</color>      <!-- Dark cards -->
+
+    <!-- Texts -->
+    <color name="colorOnBackground">#FFFFFF</color> <!-- White text -->
+    <color name="colorOnSurface">#FFFFFF</color>    <!-- White text on cards -->
+
+    <!-- Borders & Strokes -->
+    <color name="border_gray">#333333</color>
+    <color name="card_stroke_gray">#444444</color>
+
+    <!-- App Update Card -->
+    <color name="app_update_bg">#2196F3</color>    <!-- Bright blue -->
+    <color name="app_update_version">#FFFFFF</color>
+    <color name="arrow_gray">#BBBBBB</color>       <!-- Light gray arrow -->
+
+    <!-- Icons default -->
+    <color name="icon_tint">#FFFFFF</color>        <!-- White icons -->
+    <!--     End of profile page activity-->
+</resources>

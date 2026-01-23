@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#F7F8FA"
+    android:fillViewport="true"
+    android:scrollbars="vertical"
+    android:clipToPadding="false"
+    android:paddingBottom="120dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <!-- ⭐ ADDED: TOP BAR -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="12dp">
+
+            <!-- ⭐ ADDED: TITLE -->
+            <TextView
+                android:id="@+id/titleCategories"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#1E1E1E"
+            android:paddingBottom="10dp" />
+
+            <!-- ⭐ ADDED: SEARCH BAR -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/search_bg"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="6dp">
+
+            <ImageView
+                android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_search"
+            app:tint="#666" />
+
+            <EditText
+                android:id="@+id/etSearch"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:hint="Search for fruits, snacks, groceries..."
+            android:background="@android:color/transparent"
+            android:textColor="#000"
+            android:textColorHint="#777"
+            android:paddingStart="8dp"
+            android:textSize="14sp" />
+
+        </LinearLayout> <!-- ⭐ ADDED END -->
+
+    </LinearLayout> <!-- ⭐ TOP BAR END -->
+
+        <!-- =============== CATEGORY 1 =============== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Fruits &amp; Vegetables"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E1E1E"/>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_arrow_right"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory1"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="16dp" />
+
+        <!-- =============== CATEGORY 2 =============== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingVertical="6dp"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Bakery, Cakes &amp; Dairy"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E1E1E"/>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_arrow_right"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory2"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="16dp" />
+
+        <!-- =============== CATEGORY 3 =============== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Snacks &amp; Munchies"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E1E1E"/>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_arrow_right"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory3"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="16dp" />
+
+        <!-- =============== CATEGORY 4 =============== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Cleaning &amp; Household"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E1E1E"/>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_arrow_right"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory4"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="16dp" />
+
+        <!-- =============== CATEGORY 5 =============== -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Beauty &amp; Hygiene"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1E1E1E"/>
+
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@drawable/ic_arrow_right"/>
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCategory5"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            android:paddingStart="2dp"
+            android:paddingEnd="2dp"/>
+
+    </LinearLayout>
+
+</ScrollView>

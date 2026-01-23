@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="6dp"
+    android:backgroundTint="@color/white"
+    app:strokeWidth="0dp"
+    android:layout_gravity="center"
+    android:id="@+id/locationCard"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="16dp">
+
+        <!-- Location Icon -->
+        <ImageView
+            android:id="@+id/location_icon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_location_off"
+            android:layout_marginBottom="12dp"
+            app:tint="@android:color/black" />
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location permission not enabled"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"/>
+
+        <!-- Subtitle -->
+        <TextView
+            android:id="@+id/subtitle_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Please enable location permission\nfor a better delivery experience"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Divider Above -->
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="8dp"
+            app:dividerInsetStart="8dp"
+            app:dividerInsetEnd="8dp"
+            app:dividerColor="#E0E0E0"/>
+
+        <!-- Enable device location -->
+        <TextView
+            android:id="@+id/enable_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Enable device location"
+            android:textStyle="bold"
+            android:textColor="@android:color/holo_green_dark"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <!-- Divider Below -->
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            app:dividerInsetStart="8dp"
+            app:dividerInsetEnd="8dp"
+            app:dividerColor="#E0E0E0"/>
+
+        <!-- Select location manually -->
+        <TextView
+            android:id="@+id/manual_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select location manually"
+            android:textColor="@android:color/darker_gray"
+            android:padding="12dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

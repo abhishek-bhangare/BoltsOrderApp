@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+
+    <!-- Light green background (grocery theme) -->
+    <solid android:color="#DFF5E4" />
+
+    <!-- Rounded pill shape -->
+    <corners android:radius="20dp" />
+
+    <!-- Optional padding (looks better in chips) -->
+    <padding
+        android:left="8dp"
+        android:top="4dp"
+        android:right="8dp"
+        android:bottom="4dp" />
+
+</shape>

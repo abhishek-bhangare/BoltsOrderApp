@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.ShoppingApp" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <!-- App background -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:colorBackground">@color/colorBackground</item>
+
+        <!-- Card / Surface -->
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
+        <!-- Text / On Background -->
+        <item name="colorOnBackground">@color/colorOnBackground</item>
+
+        <!-- Primary / Toolbar colors -->
+        <item name="colorPrimary">@color/colorBackground</item>
+        <item name="colorPrimaryVariant">@color/colorSurface</item>
+        <item name="colorOnPrimary">@color/colorOnBackground</item>
+
+        <!-- Secondary / accent -->
+        <item name="colorSecondary">@color/colorSurface</item>
+        <item name="colorOnSecondary">@color/colorOnSurface</item>
+
+        <!-- Borders & icons -->
+        <item name="iconTint">@color/icon_tint</item>
+
+
+    </style>
+</resources>
