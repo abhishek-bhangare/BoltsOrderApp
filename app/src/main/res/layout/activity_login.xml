@@ -35,9 +35,9 @@
         <!-- Logo -->
         <ImageView
             android:id="@+id/appLogo"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:src="@drawable/orderboltlogo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/bolt_logo"
             android:contentDescription="App Logo"
             android:layout_marginBottom="14dp" />
 
@@ -46,7 +46,7 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Order App"
+            android:text="Welcome to, Bolt Order"
             android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@android:color/black"
@@ -154,7 +154,7 @@
             android:text="Login"
             android:textAllCaps="false"
             app:cornerRadius="10dp"
-            app:backgroundTint="@color/topBar"
+            app:backgroundTint="#949BA6"
             android:layout_marginBottom="4dp"
             android:textColor="@color/white"/>
         <!-- New User? Register -->
