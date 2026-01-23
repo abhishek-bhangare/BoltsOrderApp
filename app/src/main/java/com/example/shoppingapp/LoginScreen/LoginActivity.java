@@ -363,7 +363,7 @@ public class LoginActivity extends AppCompatActivity {
 
 // Purple for Register
         spannableString.setSpan(
-                new ForegroundColorSpan(Color.parseColor("#6A3DE8")),
+                new ForegroundColorSpan(Color.parseColor("#000000")),
                 registerStart,
                 registerEnd,
                 Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
