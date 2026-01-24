@@ -76,26 +76,26 @@ public class OrderFragment extends BaseFragment {
     private void loadCardData() {
         cardList = new ArrayList<>();
 
-        cardList.add(new OrderCardModel("Fruits", R.drawable.driedfruits));
-        cardList.add(new OrderCardModel("Vegetables", R.drawable.veg1));
-        cardList.add(new OrderCardModel("Snacks", R.drawable.fruit));
-        cardList.add(new OrderCardModel("Dairy", R.drawable.bread));
-        cardList.add(new OrderCardModel("Bakery", R.drawable.sample_img));
-        cardList.add(new OrderCardModel("Beverages", R.drawable.veg1));
+        cardList.add(new OrderCardModel("Engine Parts", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Brake System", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Suspension", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Electrical Parts", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Batteries", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Tyres & Wheels", R.drawable.nutbolt));
 
-        cardList.add(new OrderCardModel("Oil & Ghee", R.drawable.fruit));
-        cardList.add(new OrderCardModel("Baby Care", R.drawable.sample_img));
-        cardList.add(new OrderCardModel("Household Items", R.drawable.bread));
-        cardList.add(new OrderCardModel("Frozen Food", R.drawable.fruit));
-        cardList.add(new OrderCardModel("Masala & Spices", R.drawable.driedfruits));
-        cardList.add(new OrderCardModel("Chocolates", R.drawable.veg1));
+        cardList.add(new OrderCardModel("Oils & Lubricants", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Filters", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Lights", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Body Parts", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Accessories", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Tools", R.drawable.nutbolt));
 
-        cardList.add(new OrderCardModel("Pet Supplies", R.drawable.driedfruits));
-        cardList.add(new OrderCardModel("Cleaning Tools", R.drawable.fruit));
-        cardList.add(new OrderCardModel("Dry Fruits", R.drawable.bread));
-        cardList.add(new OrderCardModel("Beauty & Hygiene", R.drawable.sample_img));
-        cardList.add(new OrderCardModel("Personal Care", R.drawable.fruit));
-        cardList.add(new OrderCardModel("Kitchen Items", R.drawable.veg1));
+        cardList.add(new OrderCardModel("Cooling System", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Exhaust System", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Steering Parts", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Chain & Sprocket", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Clutch Parts", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Spark Plugs", R.drawable.nutbolt));
     }
 
     // 🔥 FIXED → Now RecyclerView is the scrollable view
