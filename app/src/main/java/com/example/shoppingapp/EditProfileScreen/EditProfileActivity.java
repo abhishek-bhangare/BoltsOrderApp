@@ -301,6 +301,7 @@ import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -365,7 +366,8 @@ public class EditProfileActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate started");
 
         Window window = getWindow();
-        window.setStatusBarColor(Color.parseColor("#696FC7"));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.topBar));
+
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(

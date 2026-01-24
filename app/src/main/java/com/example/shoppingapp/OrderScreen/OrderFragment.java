@@ -76,26 +76,26 @@ public class OrderFragment extends BaseFragment {
     private void loadCardData() {
         cardList = new ArrayList<>();
 
-        cardList.add(new OrderCardModel("Engine Parts", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Brake System", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Suspension", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Electrical Parts", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Batteries", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Tyres & Wheels", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Engine", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Brakes", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Suspension", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Electrical", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Battery", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Tyres", R.drawable.partsimg));
 
-        cardList.add(new OrderCardModel("Oils & Lubricants", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Filters", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Lights", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Body Parts", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Accessories", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Tools", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Oils", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Filters", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Lights", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Body", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Accessories", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Tools", R.drawable.partsimg));
 
-        cardList.add(new OrderCardModel("Cooling System", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Exhaust System", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Steering Parts", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Chain & Sprocket", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Clutch Parts", R.drawable.nutbolt));
-        cardList.add(new OrderCardModel("Spark Plugs", R.drawable.nutbolt));
+        cardList.add(new OrderCardModel("Cooling", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Exhaust", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Steering", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Chain", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Clutch", R.drawable.partsimg));
+        cardList.add(new OrderCardModel("Plugs", R.drawable.partsimg));
     }
 
     // 🔥 FIXED → Now RecyclerView is the scrollable view

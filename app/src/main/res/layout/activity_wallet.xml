@@ -14,7 +14,7 @@
         android:id="@+id/topBar"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#696FC7"
+        android:background="@color/topBar"
         android:gravity="center_vertical"
         android:paddingStart="12dp"
         android:paddingEnd="12dp"

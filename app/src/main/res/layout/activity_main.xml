@@ -49,7 +49,9 @@
             app:menu="@menu/bottom_nav_menu"
             app:labelVisibilityMode="labeled"
             app:itemIconTint="@color/bottom_nav_icon_color"
-            app:itemTextColor="@color/bottom_nav_text_color"/>
+            app:itemTextColor="@color/bottom_nav_text_color"
+            app:itemActiveIndicatorStyle="@null"
+            />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

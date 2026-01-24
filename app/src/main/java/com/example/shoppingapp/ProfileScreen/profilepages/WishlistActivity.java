@@ -76,6 +76,7 @@ import android.view.Window;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -104,7 +105,8 @@ public class WishlistActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wishlist);
         Window window = getWindow();
         // Status bar color
-        window.setStatusBarColor(Color.parseColor("#696FC7"));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.topBar));
+
 
 
         // Handle system bars

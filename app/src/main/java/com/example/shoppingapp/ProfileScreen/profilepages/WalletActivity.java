@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -22,7 +23,7 @@ public class WalletActivity extends AppCompatActivity {
         setContentView(R.layout.activity_wallet);
         Window window = getWindow();
         // Status bar color
-        window.setStatusBarColor(Color.parseColor("#696FC7"));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.topBar));
 
 
         // Handle insets for full screen layout

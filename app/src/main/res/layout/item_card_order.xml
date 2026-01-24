@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/nutbolt"/>
+                android:src="@drawable/partsimg"/>
         </com.google.android.material.card.MaterialCardView>
 
         <!-- ⭐ FIXED: Add elevation + tint so icon is visible -->
