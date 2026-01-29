@@ -37,10 +37,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shoppingapp.BaseFragment;
 import com.example.shoppingapp.ProfileScreen.ProfileActivity;
 import com.example.shoppingapp.R;
-import com.example.shoppingapp.modelclass.CategoryModel;
 import com.example.shoppingapp.network.ApiClient;
 import com.example.shoppingapp.network.ApiService;
-import com.example.shoppingapp.network.response.CategoryResponse;
+import com.example.shoppingapp.network.request.MainCategoryRequest;
+import com.example.shoppingapp.network.response.MainCategoryResponse;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.imageview.ShapeableImageView;
@@ -293,54 +293,92 @@ public class HomeFragment extends BaseFragment {
     }
 
     // ================== API : GROCERY CATEGORIES ==================
-
     private void fetchGroceryCategoriesFromApi() {
 
-        rvGrocery.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        // 🟡 NULL SAFETY
+        if (getContext() == null || rvGrocery == null) {
+            Log.w("HomeFragment", "Context or RecyclerView is NULL");
+            return;
+        }
+
+        Log.d("HomeFragment", "Calling Main Category API");
+
+        rvGrocery.setLayoutManager(new GridLayoutManager(getContext(), 3));
         rvGrocery.setHasFixedSize(true);
         rvGrocery.setNestedScrollingEnabled(false);
+
         ApiService apiService =
                 ApiClient.getClient().create(ApiService.class);
 
-        apiService.getCategories().enqueue(new Callback<CategoryResponse>() {
-            @Override
-            public void onResponse(Call<CategoryResponse> call,
-                                   Response<CategoryResponse> response) {
+        // 🔥 RAW JSON REQUEST BODY
+        MainCategoryRequest request = new MainCategoryRequest("1");
 
-                if (response.isSuccessful()
-                        && response.body() != null
-                        && response.body().isStatus()) {
+        apiService.getMainCategories(request)
+                .enqueue(new Callback<List<MainCategoryResponse>>() {
 
-                    List<CategoryModel> categories =
-                            response.body().getData();
+                    @Override
+                    public void onResponse(
+                            Call<List<MainCategoryResponse>> call,
+                            Response<List<MainCategoryResponse>> response) {
 
-                    rvGrocery.setAdapter(
-                            new GroceryAdapter(categories)
-                    );
-                    // 🔥 ADD CATEGORY NAMES FOR SEARCH HINTS
-                    searchHints.clear();
-                    for (CategoryModel model : categories) {
-                        //searchHints.add(model.getCatName()); // adjust getter if needed
-                        searchHints.add("\"" + model.getCatName() + "\"");
+                        Log.d("HomeFragment",
+                                "API Response Code: " + response.code());
 
+                        if (!response.isSuccessful()) {
+                            Log.e("HomeFragment",
+                                    "API failed with code: " + response.code());
+                            return;
+                        }
+
+                        if (response.body() == null) {
+                            Log.w("HomeFragment", "Response body is NULL");
+                            return;
+                        }
+
+                        if (response.body().isEmpty()) {
+                            Log.w("HomeFragment", "Category list is EMPTY");
+                            return;
+                        }
+
+                        List<MainCategoryResponse> categories = response.body();
+
+                        Log.d("HomeFragment",
+                                "Categories count: " + categories.size());
+
+                        rvGrocery.setAdapter(
+                                new GroceryAdapter(categories)
+                        );
+
+                        // 🔥 SEARCH HINTS
+                        searchHints.clear();
+                        for (MainCategoryResponse model : categories) {
+
+                            if (model != null && model.getCategoryName() != null) { // 🟢 NULL SAFE
+                                searchHints.add("\"" + model.getCategoryName() + "\"");
+                            }
+                        }
+
+                        if (!searchHints.isEmpty()) {
+                            startFloatingText();
+                        }
                     }
 
-                    // 🔥 START ROTATION ONLY WHEN DATA EXISTS
-                    if (!searchHints.isEmpty()) {
-                        startFloatingText();
-                    }
-                }
-            }
+                    @Override
+                    public void onFailure(
+                            Call<List<MainCategoryResponse>> call,
+                            Throwable t) {
 
-            @Override
-            public void onFailure(Call<CategoryResponse> call, Throwable t) {
-                Toast.makeText(getContext(),
-                        "Failed to load categories",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+                        Log.e("HomeFragment",
+                                "API Call Failed", t);
+
+                        if (getContext() != null) {
+                            Toast.makeText(getContext(),
+                                    "Failed to load categories",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
-
     // ================== STATIC DATA (UNCHANGED) ==================
 
     private List<HomeCategoryModel> getBestsellerList() {

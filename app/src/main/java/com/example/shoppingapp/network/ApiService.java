@@ -1,14 +1,18 @@
 package com.example.shoppingapp.network;
 
 import com.example.shoppingapp.network.request.LoginRequest;
+import com.example.shoppingapp.network.request.MainCategoryRequest;
 import com.example.shoppingapp.network.request.RegisterRequest;
 import com.example.shoppingapp.network.request.SubCategoryRequest;
 import com.example.shoppingapp.network.response.CategoryResponse;
 import com.example.shoppingapp.network.response.LoginResponse;
+import com.example.shoppingapp.network.response.MainCategoryResponse;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
 import com.example.shoppingapp.network.response.OtpResponse;
 import com.example.shoppingapp.network.response.RegisterResponse;
 import com.example.shoppingapp.network.response.SubCategoryResponse;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -37,9 +41,14 @@ public interface ApiService {
 //    Call<LoginResponse> loginUser(
 //            @Body LoginRequest request
 //    );
-    //Get Categories
-    @POST("api_getCategories.php")
-    Call<CategoryResponse> getCategories();
+//    //Get Categories
+//    @POST("api_getCategories.php")
+//    Call<CategoryResponse> getCategories();
+
+    @POST("api_maincategory.php")
+    Call<List<MainCategoryResponse>> getMainCategories(
+            @Body MainCategoryRequest request
+    );
 
     @POST("api_getSubcategories.php")
     Call<SubCategoryResponse> getSubCategories(

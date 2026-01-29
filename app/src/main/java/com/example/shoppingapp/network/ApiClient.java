@@ -12,7 +12,8 @@ public class ApiClient {
   // private static final String BASE_URL = "http://192.168.1.25/retailminds_dairy/api/";
 
 //    private static final String BASE_URL = "http://103.22.140.251/retailminds_dairy/api/";
-private static final String BASE_URL = "http://103.22.140.251/smartopl/api_customers/";
+//private static final String BASE_URL = "http://103.22.140.251/smartopl/api_customers/";
+private static final String BASE_URL = "http://103.22.140.251/retailmind_automobiles/api/";
 
     public static Retrofit getClient() {
 
