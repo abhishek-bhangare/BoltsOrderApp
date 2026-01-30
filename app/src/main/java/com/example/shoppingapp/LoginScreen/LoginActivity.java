@@ -275,6 +275,7 @@ import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.StyleSpan;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -292,6 +293,7 @@ import com.example.shoppingapp.network.ApiClient;
 import com.example.shoppingapp.network.ApiService;
 import com.example.shoppingapp.network.UserApiService;
 import com.example.shoppingapp.network.request.LoginRequest;
+import com.example.shoppingapp.network.request.MobileCheckRequest;
 import com.example.shoppingapp.network.response.LoginResponse;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
 import com.example.shoppingapp.utils.SessionManager;
@@ -315,6 +317,8 @@ public class LoginActivity extends AppCompatActivity {
 
     // 🔹 ADDED
     private boolean isMobileRegistered = false;
+    private static final String TAG = "LOGIN_DEBUG";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -413,45 +417,106 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // 🔹 MOBILE CHECK API (LOGIN VERSION)
+//    private void checkMobileFromApi(String mobile) {
+//
+//        userApiService.checkMobile(mobile)
+//                .enqueue(new Callback<MobileCheckResponse>() {
+//
+//                    @Override
+//                    public void onResponse(Call<MobileCheckResponse> call,
+//                                           Response<MobileCheckResponse> response) {
+//
+//                        if (!response.isSuccessful() || response.body() == null) {
+//                            isMobileRegistered = false;
+//                            btnContinue.setEnabled(false);
+//                            tilPhone.setError("Server error");
+//                            return;
+//                        }
+//
+//                        MobileCheckResponse res = response.body();
+//
+//                        if (res.isStatus()) {
+//                            // ✅ Mobile exists → allow login
+//                            isMobileRegistered = true;
+//                            btnContinue.setEnabled(true);
+//                            tilPhone.setError(null);
+//                        } else {
+//                            // ❌ Mobile not registered
+//                            isMobileRegistered = false;
+//                            btnContinue.setEnabled(false);
+//                            tilPhone.setError("Mobile number not registered");
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<MobileCheckResponse> call, Throwable t) {
+//                        isMobileRegistered = false;
+//                        btnContinue.setEnabled(false);
+//                        tilPhone.setError("Network error");
+//                    }
+//                });
+//    }
     private void checkMobileFromApi(String mobile) {
 
-        userApiService.checkMobile(mobile)
+        Log.d(TAG, "checkMobileFromApi() called with mobile = " + mobile);
+
+        MobileCheckRequest request = new MobileCheckRequest(mobile);
+
+        userApiService.checkMobile(request)
                 .enqueue(new Callback<MobileCheckResponse>() {
 
                     @Override
                     public void onResponse(Call<MobileCheckResponse> call,
                                            Response<MobileCheckResponse> response) {
 
-                        if (!response.isSuccessful() || response.body() == null) {
+                        Log.d(TAG, "Mobile Check HTTP Code: " + response.code());
+
+                        if (!response.isSuccessful()) {
+                            Log.e(TAG, "Mobile Check Failed. Error Body: " + response.errorBody());
                             isMobileRegistered = false;
                             btnContinue.setEnabled(false);
                             tilPhone.setError("Server error");
                             return;
                         }
 
+                        if (response.body() == null) {
+                            Log.e(TAG, "Mobile Check Response Body is NULL");
+                            isMobileRegistered = false;
+                            btnContinue.setEnabled(false);
+                            tilPhone.setError("Empty response");
+                            return;
+                        }
+
                         MobileCheckResponse res = response.body();
 
+                        Log.d(TAG, "Mobile Check Response → "
+                                + "Mobile: " + res.getCustMobNo()
+                                + ", UniqueId: " + res.getUniqueId()
+                                + ", Status: " + res.isStatus());
+
                         if (res.isStatus()) {
-                            // ✅ Mobile exists → allow login
                             isMobileRegistered = true;
                             btnContinue.setEnabled(true);
                             tilPhone.setError(null);
+                            Log.d(TAG, "Mobile is REGISTERED ✅");
                         } else {
-                            // ❌ Mobile not registered
                             isMobileRegistered = false;
                             btnContinue.setEnabled(false);
                             tilPhone.setError("Mobile number not registered");
+                            Log.d(TAG, "Mobile is NOT registered ❌");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MobileCheckResponse> call, Throwable t) {
+                        Log.e(TAG, "Mobile Check API FAILURE", t);
                         isMobileRegistered = false;
                         btnContinue.setEnabled(false);
                         tilPhone.setError("Network error");
                     }
                 });
     }
+
 
     private void loginUser() {
 
@@ -493,8 +558,8 @@ public class LoginActivity extends AppCompatActivity {
             tilPhone.setError("Enter valid 10-digit mobile number"); // 🔴 CHANGED
             return;
         }
-
-        LoginRequest request = new LoginRequest(mobile, password);
+        final String finalMobile = mobile;
+        LoginRequest request = new LoginRequest(finalMobile, password);
 
         userApiService.login(request).enqueue(new Callback<LoginResponse>() {
             @Override
@@ -510,10 +575,11 @@ public class LoginActivity extends AppCompatActivity {
                         SessionManager session =
                                 new SessionManager(LoginActivity.this);
 
+                        // ⭐⭐ MOST IMPORTANT FIX ⭐⭐
                         session.saveLogin(
-                                res.getC_id(),        // ✅ customer id
-                                res.getUnique_id(),   // ✅ profile api key
-                                res.getCust_mobile()  // ✅ mobile
+                                res.getCustId(),     // ⭐ UPDATED
+                                res.getUniqueId(),   // ⭐ UPDATED
+                                finalMobile               // ⭐ UPDATED (from input)
                         );
 
                         Toast.makeText(LoginActivity.this,

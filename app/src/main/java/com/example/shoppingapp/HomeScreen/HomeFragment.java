@@ -309,9 +309,10 @@ public class HomeFragment extends BaseFragment {
 
         ApiService apiService =
                 ApiClient.getClient().create(ApiService.class);
-
+        // 🔥 Vehicle type
+        String comId = "1";
         // 🔥 RAW JSON REQUEST BODY
-        MainCategoryRequest request = new MainCategoryRequest("1");
+        MainCategoryRequest request = new MainCategoryRequest(comId);
 
         apiService.getMainCategories(request)
                 .enqueue(new Callback<List<MainCategoryResponse>>() {
@@ -346,7 +347,7 @@ public class HomeFragment extends BaseFragment {
                                 "Categories count: " + categories.size());
 
                         rvGrocery.setAdapter(
-                                new GroceryAdapter(categories)
+                                new GroceryAdapter(categories, comId)
                         );
 
                         // 🔥 SEARCH HINTS

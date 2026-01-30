@@ -14,6 +14,7 @@ import com.example.shoppingapp.network.response.SubCategoryResponse;
 
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -50,9 +51,11 @@ public interface ApiService {
             @Body MainCategoryRequest request
     );
 
-    @POST("api_getSubcategories.php")
-    Call<SubCategoryResponse> getSubCategories(
+    @POST("api_subcategory.php")
+    Call<ResponseBody> getSubCategories(
             @Body SubCategoryRequest request
     );
+
+
 
 }

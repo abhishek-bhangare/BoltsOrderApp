@@ -605,6 +605,7 @@ import com.example.shoppingapp.network.ApiService;
 import com.example.shoppingapp.network.OtpApiService;
 import com.example.shoppingapp.network.UserApiService;
 
+import com.example.shoppingapp.network.request.MobileCheckRequest;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
 import com.example.shoppingapp.network.response.OtpGenerationResponse;
 
@@ -1052,43 +1053,112 @@ public class RegistrationActivity extends AppCompatActivity {
     }
 
     /* ---------------- MOBILE CHECK API ---------------- */
+//    private void checkMobileFromApi(String mobile) {
+//
+//        userApiService.checkMobile(mobile)
+//                .enqueue(new Callback<MobileCheckResponse>() {
+//
+//                    @Override
+//                    public void onResponse(Call<MobileCheckResponse> call,
+//                                           Response<MobileCheckResponse> response) {
+//
+//                        if (!response.isSuccessful() || response.body() == null) {
+//                            showError(tilMobile, "Server error");
+//                            btnSendOtp.setVisibility(View.GONE);
+//                            return;
+//                        }
+//
+//                        MobileCheckResponse res = response.body();
+//
+//                        if (res.isStatus()) {
+//                            // ❌ Mobile already exists
+//                            showError(tilMobile, "Mobile already registered");
+//                            isMobileAvailable = false;
+//                            btnSendOtp.setVisibility(View.GONE);
+//                        } else {
+//                            // ✅ Mobile is new
+//                            clearError(tilMobile);
+//                            isMobileAvailable = true;
+//                            btnSendOtp.setVisibility(View.VISIBLE);
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<MobileCheckResponse> call, Throwable t) {
+//                        showError(tilMobile, "Network error");
+//                        btnSendOtp.setVisibility(View.GONE);
+//                    }
+//                });
+//    }
+
     private void checkMobileFromApi(String mobile) {
 
-        userApiService.checkMobile(mobile)
+        Log.d(TAG, "checkMobileFromApi() called with mobile = " + mobile);
+
+        MobileCheckRequest request = new MobileCheckRequest(mobile);
+
+        userApiService.checkMobile(request)
                 .enqueue(new Callback<MobileCheckResponse>() {
 
                     @Override
                     public void onResponse(Call<MobileCheckResponse> call,
                                            Response<MobileCheckResponse> response) {
 
-                        if (!response.isSuccessful() || response.body() == null) {
+                        Log.d(TAG, "MobileCheck HTTP Code = " + response.code());
+
+                        if (!response.isSuccessful()) {
+                            Log.e(TAG, "MobileCheck failed. ErrorBody = " + response.errorBody());
                             showError(tilMobile, "Server error");
                             btnSendOtp.setVisibility(View.GONE);
+                            isMobileAvailable = false;
+                            return;
+                        }
+
+                        if (response.body() == null) {
+                            Log.e(TAG, "MobileCheck response body is NULL");
+                            showError(tilMobile, "Empty response");
+                            btnSendOtp.setVisibility(View.GONE);
+                            isMobileAvailable = false;
                             return;
                         }
 
                         MobileCheckResponse res = response.body();
+
+                        Log.d(TAG,
+                                "MobileCheck Response → " +
+                                        "mobile=" + res.getCustMobNo() +
+                                        ", uniqueId=" + res.getUniqueId() +
+                                        ", status=" + res.isStatus()
+                        );
 
                         if (res.isStatus()) {
                             // ❌ Mobile already exists
                             showError(tilMobile, "Mobile already registered");
                             isMobileAvailable = false;
                             btnSendOtp.setVisibility(View.GONE);
+
+                            Log.d(TAG, "Mobile already REGISTERED ❌");
+
                         } else {
                             // ✅ Mobile is new
                             clearError(tilMobile);
                             isMobileAvailable = true;
                             btnSendOtp.setVisibility(View.VISIBLE);
+
+                            Log.d(TAG, "Mobile AVAILABLE ✅ , OTP allowed");
                         }
                     }
 
                     @Override
                     public void onFailure(Call<MobileCheckResponse> call, Throwable t) {
+                        Log.e(TAG, "MobileCheck API FAILURE", t);
                         showError(tilMobile, "Network error");
                         btnSendOtp.setVisibility(View.GONE);
+                        isMobileAvailable = false;
                     }
                 });
     }
+
 
 
     /* ---------------- REGISTER API ---------------- */

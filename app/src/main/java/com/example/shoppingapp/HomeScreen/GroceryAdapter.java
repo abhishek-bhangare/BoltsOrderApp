@@ -1,6 +1,9 @@
+//
+//
 //package com.example.shoppingapp.HomeScreen;
 //
 //import android.content.Intent;
+//import android.util.Log;
 //import android.view.LayoutInflater;
 //import android.view.View;
 //import android.view.ViewGroup;
@@ -11,64 +14,111 @@
 //import androidx.recyclerview.widget.RecyclerView;
 //
 //import com.example.shoppingapp.R;
-//import com.example.shoppingapp.modelclass.CategoryModel;
+//import com.example.shoppingapp.network.response.MainCategoryResponse;
 //import com.example.shoppingapp.subcategory.SubCategoryActivity;
 //
 //import java.util.List;
 //
 //public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHolder> {
 //
-//    private final List<CategoryModel> list;
+//    private static final String TAG = "GroceryAdapter";
 //
-//    public GroceryAdapter(List<CategoryModel> list) {
+//    private final List<MainCategoryResponse> list;
+//
+//    public GroceryAdapter(List<MainCategoryResponse> list) {
 //        this.list = list;
 //    }
 //
 //    @NonNull
 //    @Override
 //    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//
 //        View view = LayoutInflater.from(parent.getContext())
 //                .inflate(R.layout.item_grocery_homecategory, parent, false);
+//
 //        return new ViewHolder(view);
 //    }
 //
 //    @Override
 //    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 //
-//        CategoryModel model = list.get(position);
+//        // 🟡 Null & bounds safety
+//        if (list == null || position >= list.size()) {
+//            Log.w(TAG, "Invalid adapter position: " + position);
+//            return;
+//        }
 //
-//        // Category name from API
-//        holder.tvName.setText(model.getCatName());
+//        MainCategoryResponse model = list.get(position);
 //
-//        // Temporary static icon (API has no image yet)
-//        holder.imgCategory.setImageResource(R.drawable.nutbolt);
-//        // 🔥 CLICK → OPEN SUBCATEGORY SCREEN
+//        if (model == null) {
+//            Log.w(TAG, "Category model is NULL at position: " + position);
+//            return;
+//        }
+//
+//        String categoryId = model.getMcateId();
+//        String categoryName = model.getCategoryName();
+//
+//        // 🟢 Set category name
+//        holder.tvName.setText(categoryName != null ? categoryName : "N/A");
+//
+//        // 🟢 SET IMAGE BASED ON CATEGORY ID
+//        if ("1".equals(categoryId)) {
+//            // Two Wheeler
+//            holder.imgCategory.setImageResource(R.drawable.twowheeler_img);
+//
+//        } else if ("2".equals(categoryId)) {
+//            // Four Wheeler
+//            holder.imgCategory.setImageResource(R.drawable.fourwheeler_img);
+//
+//        } else if ("3".equals(categoryId)) {
+//            // Three Wheeler
+//            holder.imgCategory.setImageResource(R.drawable.threewheeler_img);
+//
+//        } else {
+//            // Fallback image
+//            holder.imgCategory.setImageResource(R.drawable.nutbolt);
+//        }
+//
+//        // 🔥 CLICK → OPEN SUBCATEGORY
 //        holder.itemView.setOnClickListener(v -> {
+//
+//            if (categoryId == null) {
+//                Log.e(TAG, "Category ID is NULL, cannot open subcategory");
+//                return;
+//            }
+//
+//            Log.d(TAG, "Clicked Category → ID: " + categoryId +
+//                    ", Name: " + categoryName);
+//
 //            Intent intent = new Intent(
 //                    v.getContext(),
 //                    SubCategoryActivity.class
 //            );
 //
-//            // ✅ Convert String → int
-//            intent.putExtra(
-//                    "category_id",
-//                    Integer.parseInt(model.getCatId())
-//            );
+//            // 🟢 Safe String → Int conversion
+//            try {
+//                intent.putExtra("category_id", Integer.parseInt(categoryId));
+//            } catch (NumberFormatException e) {
+//                Log.e(TAG, "Invalid category ID: " + categoryId, e);
+//                return;
+//            }
 //
-//            intent.putExtra("category_name", model.getCatName());
+//            intent.putExtra(
+//                    "category_name",
+//                    categoryName != null ? categoryName : "N/A"
+//            );
 //
 //            v.getContext().startActivity(intent);
 //        });
-//
 //    }
-//
 //
 //    @Override
 //    public int getItemCount() {
 //        return list != null ? list.size() : 0;
 //    }
 //
-//    // 🔹 ViewHolder
+//    // ================= VIEW HOLDER =================
+//
 //    static class ViewHolder extends RecyclerView.ViewHolder {
 //
 //        ImageView imgCategory;
@@ -106,9 +156,12 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
     private static final String TAG = "GroceryAdapter";
 
     private final List<MainCategoryResponse> list;
+    private final String comId;   // ✅ Vehicle type (2W / 3W / 4W)
 
-    public GroceryAdapter(List<MainCategoryResponse> list) {
+    // ✅ UPDATED CONSTRUCTOR
+    public GroceryAdapter(List<MainCategoryResponse> list, String comId) {
         this.list = list;
+        this.comId = comId;
     }
 
     @NonNull
@@ -124,67 +177,63 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        // 🟡 Null & bounds safety
+        // 🟡 Safety checks
         if (list == null || position >= list.size()) {
             Log.w(TAG, "Invalid adapter position: " + position);
             return;
         }
 
         MainCategoryResponse model = list.get(position);
-
         if (model == null) {
             Log.w(TAG, "Category model is NULL at position: " + position);
             return;
         }
 
-        String categoryId = model.getMcateId();
+        String mcateId = model.getMcateId();
         String categoryName = model.getCategoryName();
 
         // 🟢 Set category name
         holder.tvName.setText(categoryName != null ? categoryName : "N/A");
 
-        // 🟢 SET IMAGE BASED ON CATEGORY ID
-        if ("1".equals(categoryId)) {
+        // 🟢 SET IMAGE BASED ON MAIN CATEGORY ID (mcate_id)
+        if ("1".equals(mcateId)) {
             // Two Wheeler
             holder.imgCategory.setImageResource(R.drawable.twowheeler_img);
 
-        } else if ("2".equals(categoryId)) {
+        } else if ("2".equals(mcateId)) {
             // Four Wheeler
             holder.imgCategory.setImageResource(R.drawable.fourwheeler_img);
 
-        } else if ("3".equals(categoryId)) {
+        } else if ("3".equals(mcateId)) {
             // Three Wheeler
             holder.imgCategory.setImageResource(R.drawable.threewheeler_img);
 
         } else {
-            // Fallback image
+            // Fallback
             holder.imgCategory.setImageResource(R.drawable.nutbolt);
         }
+
 
         // 🔥 CLICK → OPEN SUBCATEGORY
         holder.itemView.setOnClickListener(v -> {
 
-            if (categoryId == null) {
-                Log.e(TAG, "Category ID is NULL, cannot open subcategory");
+            if (mcateId == null) {
+                Log.e(TAG, "mcate_id is NULL, cannot open subcategory");
                 return;
             }
 
-            Log.d(TAG, "Clicked Category → ID: " + categoryId +
-                    ", Name: " + categoryName);
+            Log.d(TAG, "Clicked Main Category → mcate_id: " + mcateId +
+                    ", Name: " + categoryName +
+                    ", com_id: " + comId);
 
             Intent intent = new Intent(
                     v.getContext(),
                     SubCategoryActivity.class
             );
 
-            // 🟢 Safe String → Int conversion
-            try {
-                intent.putExtra("category_id", Integer.parseInt(categoryId));
-            } catch (NumberFormatException e) {
-                Log.e(TAG, "Invalid category ID: " + categoryId, e);
-                return;
-            }
-
+            // ✅ REQUIRED FOR SUBCATEGORY API
+            intent.putExtra("mcate_id", mcateId);
+            intent.putExtra("com_id", comId);
             intent.putExtra(
                     "category_name",
                     categoryName != null ? categoryName : "N/A"
@@ -200,7 +249,6 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
     }
 
     // ================= VIEW HOLDER =================
-
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         ImageView imgCategory;

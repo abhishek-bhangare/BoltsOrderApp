@@ -1,6 +1,7 @@
 package com.example.shoppingapp.network;
 
 import com.example.shoppingapp.network.request.LoginRequest;
+import com.example.shoppingapp.network.request.MobileCheckRequest;
 import com.example.shoppingapp.network.response.EditProfileResponse;
 import com.example.shoppingapp.network.response.LoginResponse;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
@@ -19,8 +20,9 @@ import retrofit2.http.Query;
 
 public interface UserApiService {
 
-    @GET("api_mobile_nocheck.php")
-    Call<MobileCheckResponse>checkMobile(@Query("c_mob") String cMob);
+    @POST("api_mobile_nocheck.php")
+    Call<MobileCheckResponse> checkMobile(@Body MobileCheckRequest request);
+
 
     @POST("api_custlogin.php")
     Call<LoginResponse> login(@Body LoginRequest request);

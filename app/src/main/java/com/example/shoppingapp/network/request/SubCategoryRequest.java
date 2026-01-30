@@ -1,15 +1,25 @@
 package com.example.shoppingapp.network.request;
 
+import com.google.gson.annotations.SerializedName;
 
 public class SubCategoryRequest {
 
-    private int catid;
+    @SerializedName("com_id")
+    private String comId;
 
-    public SubCategoryRequest(int catid) {
-        this.catid = catid;
+    @SerializedName("mcate_id")
+    private String mcateId;
+
+    public SubCategoryRequest(String comId, String mcateId) {
+        this.comId = comId;
+        this.mcateId = mcateId;
     }
 
-    public int getCatid() {
-        return catid;
+    public String getComId() {
+        return comId;
+    }
+
+    public String getMcateId() {
+        return mcateId;
     }
 }
