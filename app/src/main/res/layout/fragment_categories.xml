@@ -60,9 +60,18 @@
             </LinearLayout>
         </LinearLayout>
         <!-- ================= TOP BAR END ================= -->
+        <!-- ================= MAIN CATEGORY ================= -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMainCategory"
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"/>
 
-
-        <!-- =============== CATEGORY 1 : FRUITS & VEGETABLES =============== -->
+        <!-- =============== CATEGORY 1 : Parts =============== -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -87,6 +96,7 @@
                 android:src="@drawable/ic_arrow_right"/>
         </LinearLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategory1"
             android:layout_width="match_parent"
@@ -95,7 +105,16 @@
             android:overScrollMode="never"
             android:paddingStart="2dp"
             android:paddingEnd="2dp"/>
-
+        <TextView
+            android:id="@+id/tvNoData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="No categories found"
+            android:textSize="16sp"
+            android:textColor="#888888"
+            android:gravity="center"
+            android:visibility="gone"
+            android:padding="16dp"/>
         <View
             android:layout_width="match_parent"
             android:layout_height="16dp" />

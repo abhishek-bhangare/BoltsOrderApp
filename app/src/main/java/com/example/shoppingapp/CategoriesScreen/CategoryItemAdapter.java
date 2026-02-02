@@ -1,78 +1,82 @@
-
 package com.example.shoppingapp.CategoriesScreen;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
+import com.example.shoppingapp.network.response.SubCategoryResponse;
 
 import java.util.List;
 
-public class CategoryItemAdapter extends RecyclerView.Adapter<CategoryItemAdapter.ViewHolder> {
+public class CategoryItemAdapter
+        extends RecyclerView.Adapter<CategoryItemAdapter.ViewHolder> {
 
-    private List<CategoryItemModel> list;
-    private Context context;
-    private OnCategoryItemClick listener;
-    private String mainCategory;   // ⭐ NEW: to know parent category
+    private final List<SubCategoryResponse> list;
+    private final OnCategoryItemClick listener;
 
-    // Constructor with mainCategory
-    public CategoryItemAdapter(List<CategoryItemModel> list, Context context, String mainCategory, OnCategoryItemClick listener) {
-        this.list = list;
-        this.context = context;
-        this.listener = listener;
-        this.mainCategory = mainCategory;
+    // ✅ Click callback (updated)
+    public interface OnCategoryItemClick {
+        void onItemClick(SubCategoryResponse model);
     }
 
-    // Interface for click callback
-    public interface OnCategoryItemClick {
-        void onItemClick(CategoryItemModel model, String mainCategory);
+    // ✅ Constructor updated (name unchanged)
+    public CategoryItemAdapter(
+            List<SubCategoryResponse> list,
+            OnCategoryItemClick listener
+    ) {
+        this.list = list;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.category_item_card, parent, false);
+    public ViewHolder onCreateViewHolder(
+            @NonNull ViewGroup parent,
+            int viewType
+    ) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.category_item_card, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(
+            @NonNull ViewHolder holder,
+            int position
+    ) {
+        SubCategoryResponse model = list.get(position);
 
-        CategoryItemModel model = list.get(position);
+        holder.tvName.setText(
+                model.getSubCatename() != null
+                        ? model.getSubCatename()
+                        : "N/A"
+        );
 
-        holder.imgItem.setImageResource(model.getImage());
-        holder.txtItemName.setText(model.getName());
-
-        // CLICK EVENT
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
-                listener.onItemClick(model, mainCategory);   // ⭐ Send category also
+                listener.onItemClick(model);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return list != null ? list.size() : 0;
     }
 
+    // ================= VIEW HOLDER =================
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imgItem;
-        TextView txtItemName;
+        TextView tvName;
 
-        public ViewHolder(@NonNull View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            imgItem = itemView.findViewById(R.id.imgItem);
-            txtItemName = itemView.findViewById(R.id.txtItemName);
+            tvName = itemView.findViewById(R.id.tvName);
         }
     }
 }

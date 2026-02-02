@@ -4,8 +4,6 @@ import com.example.shoppingapp.network.request.LoginRequest;
 import com.example.shoppingapp.network.request.MainCategoryRequest;
 import com.example.shoppingapp.network.request.RegisterRequest;
 import com.example.shoppingapp.network.request.SubCategoryRequest;
-import com.example.shoppingapp.network.response.CategoryResponse;
-import com.example.shoppingapp.network.response.LoginResponse;
 import com.example.shoppingapp.network.response.MainCategoryResponse;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
 import com.example.shoppingapp.network.response.OtpResponse;

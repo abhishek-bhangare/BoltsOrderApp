@@ -2,11 +2,13 @@ package com.example.shoppingapp.network;
 
 import com.example.shoppingapp.network.request.LoginRequest;
 import com.example.shoppingapp.network.request.MobileCheckRequest;
+import com.example.shoppingapp.network.request.UserProfileRequest;
 import com.example.shoppingapp.network.response.EditProfileResponse;
 import com.example.shoppingapp.network.response.LoginResponse;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
 import com.example.shoppingapp.network.response.RegisterResponse;
 import com.example.shoppingapp.network.response.UserProfile;
+import com.example.shoppingapp.network.response.UserProfileWrapperResponse;
 
 import java.util.List;
 
@@ -37,8 +39,10 @@ public interface UserApiService {
             @Field("date") String createdOn
     );
 
-    @GET("api_userprofile.php")
-    Call<List<UserProfile>> getUserProfile(@Query("id") String uniqueId);
+    @POST("api_cust_profile.php")
+    Call<UserProfileWrapperResponse> getUserProfile(
+        @Body UserProfileRequest request
+    );
 
 
     @FormUrlEncoded

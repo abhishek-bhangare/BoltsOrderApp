@@ -474,7 +474,7 @@ public class EditProfileActivity extends AppCompatActivity {
             return;
         }
 
-        Log.d(TAG, "Prefilling data for userId=" + userProfile.getuId());
+        Log.d(TAG, "Prefilling data for userId=" + userProfile.getUniqueId());
 
         etName.setText(userProfile.getCustName());
         etMobile.setText(userProfile.getCustMobile());
@@ -530,7 +530,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Call<EditProfileResponse> call =
                     apiService.updateUserProfile(
                             sessionManager.getUniqueId(),
-                            userProfile.getuId(),
+                            userProfile.getUniqueId(),
                             etName.getText().toString().trim(),
                             etMobile.getText().toString().trim(),
                             etEmail.getText().toString().trim(),

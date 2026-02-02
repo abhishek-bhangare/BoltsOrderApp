@@ -382,16 +382,16 @@ public class HomeFragment extends BaseFragment {
     }
     // ================== STATIC DATA (UNCHANGED) ==================
 
-    private List<HomeCategoryModel> getBestsellerList() {
-        List<HomeCategoryModel> list = new ArrayList<>();
-        list.add(new HomeCategoryModel("Vegetables & Fruits", R.drawable.fruits_img));
-        list.add(new HomeCategoryModel("Chips & Namkeen", R.drawable.chips_img));
-        list.add(new HomeCategoryModel("Oil, Ghee & Masala", R.drawable.ghee_img));
-        list.add(new HomeCategoryModel("Dairy, Bread & Eggs", R.drawable.bread_img));
-        list.add(new HomeCategoryModel("Drinks & Juices", R.drawable.juice_img2));
-        list.add(new HomeCategoryModel("Bakery & Biscuits", R.drawable.biscuits));
-        return list;
-    }
+//    private List<HomeCategoryModel> getBestsellerList() {
+//        List<HomeCategoryModel> list = new ArrayList<>();
+//        list.add(new HomeCategoryModel("Vegetables & Fruits", R.drawable.fruits_img));
+//        list.add(new HomeCategoryModel("Chips & Namkeen", R.drawable.chips_img));
+//        list.add(new HomeCategoryModel("Oil, Ghee & Masala", R.drawable.ghee_img));
+//        list.add(new HomeCategoryModel("Dairy, Bread & Eggs", R.drawable.bread_img));
+//        list.add(new HomeCategoryModel("Drinks & Juices", R.drawable.juice_img2));
+//        list.add(new HomeCategoryModel("Bakery & Biscuits", R.drawable.biscuits));
+//        return list;
+//    }
 
     // ================== FLOATING TEXT ==================
 

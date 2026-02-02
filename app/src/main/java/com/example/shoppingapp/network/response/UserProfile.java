@@ -1,18 +1,19 @@
 package com.example.shoppingapp.network.response;
 
-
 import android.os.Parcel;
 import android.os.Parcelable;
-
 import com.google.gson.annotations.SerializedName;
 
 public class UserProfile implements Parcelable {
 
-    @SerializedName("u_id")
-    private String uId;
+    @SerializedName("cust_id")
+    private String custId;
 
     @SerializedName("cust_name")
     private String custName;
+
+    @SerializedName("shop_name")
+    private String shopName;
 
     @SerializedName("cust_mob")
     private String custMobile;
@@ -44,10 +45,11 @@ public class UserProfile implements Parcelable {
     @SerializedName("unique_id")
     private String uniqueId;
 
-    // Parcelable implementation
+    // Parcelable constructor
     protected UserProfile(Parcel in) {
-        uId = in.readString();
+        custId = in.readString();
         custName = in.readString();
+        shopName = in.readString();
         custMobile = in.readString();
         email = in.readString();
         address = in.readString();
@@ -73,14 +75,10 @@ public class UserProfile implements Parcelable {
     };
 
     @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(uId);
+        dest.writeString(custId);
         dest.writeString(custName);
+        dest.writeString(shopName);
         dest.writeString(custMobile);
         dest.writeString(email);
         dest.writeString(address);
@@ -93,9 +91,15 @@ public class UserProfile implements Parcelable {
         dest.writeString(uniqueId);
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
     // Getters
-    public String getuId() { return uId; }
+    public String getCustId() { return custId; }
     public String getCustName() { return custName; }
+    public String getShopName() { return shopName; }
     public String getCustMobile() { return custMobile; }
     public String getEmail() { return email; }
     public String getAddress() { return address; }

@@ -1,20 +1,20 @@
-package com.example.shoppingapp.CategoriesScreen;
-
-public class CategoryItemModel {
-
-    private int image;
-    private String name;
-
-    public CategoryItemModel(int image, String name) {
-        this.image = image;
-        this.name = name;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public String getName() {
-        return name;
-    }
-}
+//package com.example.shoppingapp.CategoriesScreen;
+//
+//public class CategoryItemModel {
+//
+//    private int image;
+//    private String name;
+//
+//    public CategoryItemModel(int image, String name) {
+//        this.image = image;
+//        this.name = name;
+//    }
+//
+//    public int getImage() {
+//        return image;
+//    }
+//
+//    public String getName() {
+//        return name;
+//    }
+//}
