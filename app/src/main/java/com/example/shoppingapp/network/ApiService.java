@@ -1,9 +1,11 @@
 package com.example.shoppingapp.network;
 
+import com.example.shoppingapp.network.request.ItemRequest;
 import com.example.shoppingapp.network.request.LoginRequest;
 import com.example.shoppingapp.network.request.MainCategoryRequest;
 import com.example.shoppingapp.network.request.RegisterRequest;
 import com.example.shoppingapp.network.request.SubCategoryRequest;
+import com.example.shoppingapp.network.response.ItemResponse;
 import com.example.shoppingapp.network.response.MainCategoryResponse;
 import com.example.shoppingapp.network.response.MobileCheckResponse;
 import com.example.shoppingapp.network.response.OtpResponse;
@@ -55,5 +57,7 @@ public interface ApiService {
     );
 
 
+    @POST("api_subcateitemlist.php")
+    Call<ItemResponse> getItemList(@Body ItemRequest request);
 
 }

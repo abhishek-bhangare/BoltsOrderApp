@@ -48,7 +48,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder> {
         holder.txtWeight.setText(model.getWeight());
         holder.txtPrice.setText("₹" + model.getPrice());
         holder.txtQty.setText(String.valueOf(model.getQty()));
-        holder.imgProduct.setImageResource(model.getImage());
+        holder.imgProduct.setImageResource(R.drawable.nutbolt);
 
         // ------------------------- PLUS BUTTON -------------------------
         holder.btnPlus.setOnClickListener(v -> {

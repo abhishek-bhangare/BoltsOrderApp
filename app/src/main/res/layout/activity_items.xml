@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
-    tools:context=".subcategory.SubCategoryActivity">
+    tools:context=".CategoryItemsScreen.ItemsActivity">
 
     <!-- ================= TOP BAR ================= -->
     <LinearLayout
@@ -34,12 +34,13 @@
             android:id="@+id/tvTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Sub Categories"
+            android:text="Items"
             android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold"
             android:layout_marginStart="12dp"/>
     </LinearLayout>
+
     <!-- ================= MODERN SEARCH BAR ================= -->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/searchLayout"
@@ -104,7 +105,7 @@
 
     <!-- ================= SUB CATEGORY LIST ================= -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvSubCategory"
+        android:id="@+id/rvItems"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:padding="12dp"
@@ -112,7 +113,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/item_subcategory"/>
+        tools:listitem="@layout/items"/>
 
     <!-- ================= NO DATA TEXT ================= -->
     <TextView

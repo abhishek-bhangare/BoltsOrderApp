@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.CategoryItemsScreen.ItemsActivity;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.network.ApiClient;
 import com.example.shoppingapp.network.ApiService;
@@ -24,6 +26,7 @@ import com.example.shoppingapp.network.response.SubCategoryResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -51,7 +54,7 @@ public class SubCategoryActivity extends AppCompatActivity {
 
         // 🔹 Status bar color
         Window window = getWindow();
-        window.setStatusBarColor(Color.parseColor("#696FC7"));
+        window.setStatusBarColor(ContextCompat.getColor(this, R.color.topBar));
 
         // 🔹 INIT VIEWS
         btnBack = findViewById(R.id.btnBack);
@@ -141,9 +144,26 @@ public class SubCategoryActivity extends AppCompatActivity {
                                 if (list == null || list.isEmpty()) {
                                     showNoData("No subcategories found");
                                 } else {
+                                    // ✅ SORT A → Z HERE
+                                    Collections.sort(list, (a, b) -> {
+                                        String nameA = a.getSubCatename() == null ? "" : a.getSubCatename();
+                                        String nameB = b.getSubCatename() == null ? "" : b.getSubCatename();
+                                        return nameA.compareToIgnoreCase(nameB);
+                                    });
                                     rvSubCategory.setVisibility(View.VISIBLE);
                                     tvNoData.setVisibility(View.GONE);
-                                    rvSubCategory.setAdapter(new SubCategoryAdapter(list));
+                                    rvSubCategory.setAdapter(
+                                            new SubCategoryAdapter(list, item -> {
+                                                Intent intent = new Intent(SubCategoryActivity.this, ItemsActivity.class);
+                                                // ✅ REQUIRED FOR ITEM API - passing ids to itemactivity
+                                                intent.putExtra("com_id", comId);                 // 🔥 company id
+                                                intent.putExtra("main_cateid", mcateId);          // 🔥 main category id
+                                                intent.putExtra("sub_cateid", item.getSubcateId());// 🔥 sub category id
+                                                intent.putExtra("subcategory_name", item.getSubCatename());
+                                                startActivity(intent);
+                                            })
+                                    );
+
                                 }
                             } else {
                                 // Object → No data case

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.network.response.SubCategoryResponse;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -57,11 +58,12 @@ public class CategoryItemAdapter
                         : "N/A"
         );
 
-        holder.itemView.setOnClickListener(v -> {
+        holder.cardCategory.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onItemClick(model);
             }
         });
+
     }
 
     @Override
@@ -73,10 +75,13 @@ public class CategoryItemAdapter
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView tvName;
+        MaterialCardView cardCategory;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvName);
+            cardCategory = itemView.findViewById(R.id.cardCategory);
         }
     }
+
 }

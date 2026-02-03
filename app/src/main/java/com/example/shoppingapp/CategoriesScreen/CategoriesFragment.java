@@ -1,6 +1,7 @@
 
 package com.example.shoppingapp.CategoriesScreen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.shoppingapp.CategoryItemsScreen.ItemsActivity;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.network.ApiClient;
 import com.example.shoppingapp.network.ApiService;
@@ -25,6 +27,7 @@ import com.example.shoppingapp.network.response.SubCategoryResponse;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.util.Collections;
 import java.util.List;
 
 import okhttp3.ResponseBody;
@@ -260,6 +263,12 @@ public class CategoriesFragment extends Fragment {
                                 if (list == null || list.isEmpty()) {
                                     showNoData("No categories found");
                                 } else {
+                                    // ✅ SORT A → Z HERE
+                                    Collections.sort(list, (a, b) -> {
+                                        String nameA = a.getSubCatename() == null ? "" : a.getSubCatename();
+                                        String nameB = b.getSubCatename() == null ? "" : b.getSubCatename();
+                                        return nameA.compareToIgnoreCase(nameB);
+                                    });
                                     rvCategory1.setVisibility(View.VISIBLE);
                                     tvNoData.setVisibility(View.GONE);
 
@@ -274,11 +283,13 @@ public class CategoriesFragment extends Fragment {
                                                                         + " | ID="
                                                                         + model.getSubcateId());
 
-                                                        Toast.makeText(
-                                                                getContext(),
-                                                                model.getSubCatename(),
-                                                                Toast.LENGTH_SHORT
-                                                        ).show();
+                                                        // 🔥 OPEN ITEMS ACTIVITY
+                                                        Intent intent = new Intent(requireContext(), ItemsActivity.class);
+                                                        intent.putExtra("com_id", comId);                  // ✅ company id
+                                                        intent.putExtra("main_cateid", mcateId);           // ✅ main category id
+                                                        intent.putExtra("sub_cateid", model.getSubcateId());// ✅ sub category id
+                                                        intent.putExtra("subcategory_name", model.getSubCatename());
+                                                        startActivity(intent);
                                                     });
 
                                     rvCategory1.setAdapter(adapter);

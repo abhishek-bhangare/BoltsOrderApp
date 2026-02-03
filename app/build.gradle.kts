@@ -45,13 +45,15 @@ dependencies {
     implementation (libs.gson)
 
     implementation(libs.lottie)
-// Retrofit
+    // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-// OkHttp logging (optional but recommended)
+    // OkHttp logging (optional but recommended)
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
-
+    //for glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
 
 
 

@@ -19,9 +19,18 @@ public class SubCategoryAdapter
         extends RecyclerView.Adapter<SubCategoryAdapter.ViewHolder> {
 
     private final List<SubCategoryResponse> list;
+    private final OnSubCategoryClickListener listener;
 
-    public SubCategoryAdapter(List<SubCategoryResponse> list) {
+    // 🔹 Click interface
+    public interface OnSubCategoryClickListener {
+        void onSubCategoryClick(SubCategoryResponse item);
+    }
+
+    // 🔹 Constructor
+    public SubCategoryAdapter(List<SubCategoryResponse> list,
+                              OnSubCategoryClickListener listener) {
         this.list = list;
+        this.listener = listener;
     }
 
     @NonNull
@@ -53,8 +62,14 @@ public class SubCategoryAdapter
         holder.tvSubCategoryName.setText(name != null ? name : "N/A");
 
         holder.imgSubCategory.setImageResource(R.drawable.nutbolt);
-    }
 
+        // 🔹 CLICK HANDLER
+        holder.itemView.setOnClickListener(v -> {
+            if (listener != null) {
+                listener.onSubCategoryClick(model);
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {
