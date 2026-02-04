@@ -94,9 +94,11 @@
 //        }
 //    }
 //}
+
 package com.example.shoppingapp.CategoryItemsScreen;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,6 +112,7 @@ import com.bumptech.glide.Glide;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.network.response.ItemModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
@@ -165,6 +168,38 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         } else {
             holder.imgItem.setImageResource(R.drawable.nutbolt);
         }
+        // =====================================================
+        // 🔥 CLICK LISTENER (THIS WAS MISSING)
+        // =====================================================
+        holder.itemView.setOnClickListener(v -> {
+
+            // DEBUG (optional)
+            // Toast.makeText(context, "Clicked: " + item.getPartName(), Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(context,
+                    com.example.shoppingapp.itemdetailscreen.ItemDetailActivity.class);
+
+            intent.putExtra("part_no", item.getPartNo());
+            intent.putExtra("part_name", item.getPartName());
+            intent.putExtra("maincategory_name", item.getMainCategoryName());
+            intent.putExtra("subcategory_name", item.getSubCategoryName());
+            intent.putExtra("mrp", item.getMrp());
+            intent.putExtra("sale_rate", item.getSaleRate());
+            intent.putExtra("unit_nm", item.getUnitName());
+            intent.putExtra("avl_stock", item.getAvlStock());
+
+            // TEMP: single image → convert to list for slider
+            ArrayList<Integer> images = new ArrayList<>();
+
+            images.add(R.drawable.nutbolt);
+            images.add(R.drawable.partsimg);
+            images.add(R.drawable.nutbolt);
+            images.add(R.drawable.partsimg);
+
+// pass via intent
+            intent.putIntegerArrayListExtra("images", images);
+            context.startActivity(intent);
+        });
     }
 
     @Override

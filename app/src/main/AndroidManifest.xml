@@ -21,6 +21,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".itemdetailscreen.FullscreenImageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".itemdetailscreen.ItemDetailActivity"
+            android:exported="false" />
+        <activity
             android:name=".CategoryItemsScreen.ItemsActivity"
             android:exported="false" />
         <activity

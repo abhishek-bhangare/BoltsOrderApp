@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.shoppingapp.R;
 import com.example.shoppingapp.network.response.MainCategoryResponse;
 import com.example.shoppingapp.subcategory.SubCategoryActivity;
+import com.google.android.material.card.MaterialCardView;
 
 import java.util.List;
 
@@ -24,6 +25,8 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
 
     private final List<MainCategoryResponse> list;
     private final String comId;   // ✅ Vehicle type (2W / 3W / 4W)
+    private int selectedPosition = RecyclerView.NO_POSITION;
+
 
     // ✅ UPDATED CONSTRUCTOR
     public GroceryAdapter(List<MainCategoryResponse> list, String comId) {
@@ -79,16 +82,25 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
             // Fallback
             holder.imgCategory.setImageResource(R.drawable.nutbolt);
         }
-
+        // 🔥 APPLY SELECTION STATE
+        holder.cardCategory.setSelected(position == selectedPosition);
 
         // 🔥 CLICK → OPEN SUBCATEGORY
-        holder.itemView.setOnClickListener(v -> {
+        holder.cardCategory.setOnClickListener(v -> {
 
             if (mcateId == null) {
                 Log.e(TAG, "mcate_id is NULL, cannot open subcategory");
                 return;
             }
+            // 🔥 UPDATE SELECTION STATE
+            int previous = selectedPosition;
+            selectedPosition = position;
+            Log.d(TAG, "Selected position = " + selectedPosition);
 
+            if (previous != RecyclerView.NO_POSITION) {
+                notifyItemChanged(previous);
+            }
+            notifyItemChanged(selectedPosition);
             Log.d(TAG, "Clicked Main Category → mcate_id: " + mcateId +
                     ", Name: " + categoryName +
                     ", com_id: " + comId);
@@ -117,12 +129,13 @@ public class GroceryAdapter extends RecyclerView.Adapter<GroceryAdapter.ViewHold
 
     // ================= VIEW HOLDER =================
     static class ViewHolder extends RecyclerView.ViewHolder {
-
+        MaterialCardView cardCategory;
         ImageView imgCategory;
         TextView tvName;
 
         ViewHolder(@NonNull View itemView) {
             super(itemView);
+            cardCategory = itemView.findViewById(R.id.cardCategory);
             imgCategory = itemView.findViewById(R.id.imgCategory);
             tvName = itemView.findViewById(R.id.tvCategoryName);
         }
