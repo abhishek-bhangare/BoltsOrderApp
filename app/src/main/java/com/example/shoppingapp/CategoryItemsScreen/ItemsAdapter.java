@@ -1,6 +1,9 @@
+//
 //package com.example.shoppingapp.CategoryItemsScreen;
 //
 //import android.content.Context;
+//import android.content.Intent;
+//import android.util.Log;
 //import android.view.LayoutInflater;
 //import android.view.View;
 //import android.view.ViewGroup;
@@ -14,6 +17,7 @@
 //import com.example.shoppingapp.R;
 //import com.example.shoppingapp.network.response.ItemModel;
 //
+//import java.util.ArrayList;
 //import java.util.List;
 //
 //public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
@@ -38,35 +42,70 @@
 //    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
 //
 //        ItemModel item = itemList.get(position);
+//        Log.d("IMG_PATH", item.getImgPath());
 //
-//        // 🔹 Safe text binding
-//        holder.tvItemName.setText(safe(item.getPartName(), "N/A"));
-//        holder.tvPrice.setText("₹ " + safe(item.getSaleRate(), "0"));
-//        holder.tvUnit.setText(safe(item.getUnitName(), "-"));
+//        // 🔹 PART NO
+//        holder.tvPartNo.setText(
+//                "Part No: " + safe(item.getPartNo(), "N/A")
+//        );
 //
-//        // 🔹 Stock handling
-//        String stock = safe(item.getAvlStock(), "0");
-//        if ("0".equals(stock)) {
-//            holder.tvStock.setText("Out of stock");
-//            holder.tvStock.setTextColor(
-//                    context.getResources().getColor(android.R.color.holo_red_dark)
-//            );
-//        } else {
-//            holder.tvStock.setText("Stock: " + stock);
-//            holder.tvStock.setTextColor(
-//                    context.getResources().getColor(android.R.color.darker_gray)
-//            );
-//        }
+//        // 🔹 PART NAME
+//        holder.tvPartName.setText(
+//                safe(item.getPartName(), "N/A")
+//        );
 //
-//        // 🔹 Image handling
+//        // 🔹 MRP
+//        holder.tvMrp.setText(
+//                "MRP: ₹" + safe(item.getMrp(), "0")
+//        );
+//
+//        // 🔹 SALE RATE
+//        holder.tvSaleRate.setText(
+//                "Price: ₹" + safe(item.getSaleRate(), "0")
+//        );
+//
+//        // 🔹 IMAGE HANDLING (SAFE)
 //        if (item.getImgPath() != null && !item.getImgPath().trim().isEmpty()) {
 //            Glide.with(context)
 //                    .load(item.getImgPath())
 //                    .placeholder(R.drawable.nutbolt)
+//                    .error(R.drawable.nutbolt)
 //                    .into(holder.imgItem);
 //        } else {
 //            holder.imgItem.setImageResource(R.drawable.nutbolt);
 //        }
+//        // =====================================================
+//        // 🔥 CLICK LISTENER (THIS WAS MISSING)
+//        // =====================================================
+//        holder.itemView.setOnClickListener(v -> {
+//
+//            // DEBUG (optional)
+//            // Toast.makeText(context, "Clicked: " + item.getPartName(), Toast.LENGTH_SHORT).show();
+//
+//            Intent intent = new Intent(context,
+//                    com.example.shoppingapp.itemdetailscreen.ItemDetailActivity.class);
+//
+//            intent.putExtra("part_no", item.getPartNo());
+//            intent.putExtra("part_name", item.getPartName());
+//            intent.putExtra("maincategory_name", item.getMainCategoryName());
+//            intent.putExtra("subcategory_name", item.getSubCategoryName());
+//            intent.putExtra("mrp", item.getMrp());
+//            intent.putExtra("sale_rate", item.getSaleRate());
+//            intent.putExtra("unit_nm", item.getUnitName());
+//            intent.putExtra("avl_stock", item.getAvlStock());
+//
+//            // TEMP: single image → convert to list for slider
+//            ArrayList<Integer> images = new ArrayList<>();
+//
+//            images.add(R.drawable.nutbolt);
+//            images.add(R.drawable.partsimg);
+//            images.add(R.drawable.nutbolt);
+//            images.add(R.drawable.partsimg);
+//
+//// pass via intent
+//            intent.putIntegerArrayListExtra("images", images);
+//            context.startActivity(intent);
+//        });
 //    }
 //
 //    @Override
@@ -74,31 +113,37 @@
 //        return itemList == null ? 0 : itemList.size();
 //    }
 //
-//    // 🔹 Helper to prevent empty fields
+//    // 🔹 Helper to prevent null / empty values (PER FIELD)
 //    private String safe(String value, String fallback) {
 //        return (value != null && !value.trim().isEmpty()) ? value : fallback;
 //    }
 //
+//    // =====================================================
+//    // 🔹 VIEW HOLDER
+//    // =====================================================
 //    static class ItemViewHolder extends RecyclerView.ViewHolder {
 //
 //        ImageView imgItem;
-//        TextView tvItemName, tvPrice, tvStock, tvUnit;
+//        TextView tvPartNo, tvPartName, tvMrp, tvSaleRate;
 //
 //        ItemViewHolder(@NonNull View itemView) {
 //            super(itemView);
+//
 //            imgItem = itemView.findViewById(R.id.imgItems);
-//            tvItemName = itemView.findViewById(R.id.tvItemsName);
-//            tvPrice = itemView.findViewById(R.id.tvPrice);
-//            tvStock = itemView.findViewById(R.id.tvStock);
-//            tvUnit = itemView.findViewById(R.id.tvUnit);
+//            tvPartNo = itemView.findViewById(R.id.tvPartNo);
+//            tvPartName = itemView.findViewById(R.id.tvPartName);
+//            tvMrp = itemView.findViewById(R.id.tvMrp);
+//            tvSaleRate = itemView.findViewById(R.id.tvSaleRate);
 //        }
 //    }
 //}
 
+//api image for single or multiple
 package com.example.shoppingapp.CategoryItemsScreen;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -117,8 +162,10 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
-    private Context context;
-    private List<ItemModel> itemList;
+    private static final String TAG = "ItemsAdapter";
+
+    private final Context context;
+    private final List<ItemModel> itemList;
 
     public ItemsAdapter(Context context, List<ItemModel> itemList) {
         this.context = context;
@@ -138,66 +185,77 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
         ItemModel item = itemList.get(position);
 
-        // 🔹 PART NO
-        holder.tvPartNo.setText(
-                "Part No: " + safe(item.getPartNo(), "N/A")
-        );
+        // =====================================================
+        // 🔹 LOGGING
+        // =====================================================
+        Log.d(TAG, "Binding item at position: " + position);
+        Log.d(TAG, "Part Name: " + safe(item.getPartName(), "N/A"));
+        Log.d(TAG, "Image URL: " + safe(item.getImgPath(), "NULL"));
 
-        // 🔹 PART NAME
-        holder.tvPartName.setText(
-                safe(item.getPartName(), "N/A")
-        );
+        // =====================================================
+        // 🔹 TEXT DATA (NULL SAFE)
+        // =====================================================
+        holder.tvPartNo.setText("Part No: " + safe(item.getPartNo(), "N/A"));
+        holder.tvPartName.setText(safe(item.getPartName(), "N/A"));
+        holder.tvMrp.setText("MRP: ₹" + safe(item.getMrp(), "0"));
+        holder.tvSaleRate.setText("Price: ₹" + safe(item.getSaleRate(), "0"));
 
-        // 🔹 MRP
-        holder.tvMrp.setText(
-                "MRP: ₹" + safe(item.getMrp(), "0")
-        );
+        // =====================================================
+        // 🔹 IMAGE HANDLING (FULL URL ONLY)
+        // =====================================================
+        String imageUrl = item.getImgPath();
 
-        // 🔹 SALE RATE
-        holder.tvSaleRate.setText(
-                "Price: ₹" + safe(item.getSaleRate(), "0")
-        );
+        if (imageUrl != null && !imageUrl.trim().isEmpty()) {
 
-        // 🔹 IMAGE HANDLING (SAFE)
-        if (item.getImgPath() != null && !item.getImgPath().trim().isEmpty()) {
+            Log.d(TAG, "Loading image: " + imageUrl);
+
             Glide.with(context)
-                    .load(item.getImgPath())
+                    .load(imageUrl)
                     .placeholder(R.drawable.nutbolt)
                     .error(R.drawable.nutbolt)
                     .into(holder.imgItem);
+
         } else {
+            Log.e(TAG, "Image URL missing, loading fallback drawable");
             holder.imgItem.setImageResource(R.drawable.nutbolt);
         }
+
         // =====================================================
-        // 🔥 CLICK LISTENER (THIS WAS MISSING)
+        // 🔥 ITEM CLICK → ITEM DETAIL
         // =====================================================
         holder.itemView.setOnClickListener(v -> {
 
-            // DEBUG (optional)
-            // Toast.makeText(context, "Clicked: " + item.getPartName(), Toast.LENGTH_SHORT).show();
+            Log.d(TAG, "Item clicked: " + safe(item.getPartName(), "N/A"));
 
-            Intent intent = new Intent(context,
-                    com.example.shoppingapp.itemdetailscreen.ItemDetailActivity.class);
+            Intent intent = new Intent(
+                    context,
+                    com.example.shoppingapp.itemdetailscreen.ItemDetailActivity.class
+            );
 
-            intent.putExtra("part_no", item.getPartNo());
-            intent.putExtra("part_name", item.getPartName());
-            intent.putExtra("maincategory_name", item.getMainCategoryName());
-            intent.putExtra("subcategory_name", item.getSubCategoryName());
-            intent.putExtra("mrp", item.getMrp());
-            intent.putExtra("sale_rate", item.getSaleRate());
-            intent.putExtra("unit_nm", item.getUnitName());
-            intent.putExtra("avl_stock", item.getAvlStock());
+            // 🔹 PASS TEXT DATA
+            intent.putExtra("part_no", safe(item.getPartNo(), ""));
+            intent.putExtra("part_name", safe(item.getPartName(), ""));
+            intent.putExtra("maincategory_name", safe(item.getMainCategoryName(), ""));
+            intent.putExtra("subcategory_name", safe(item.getSubCategoryName(), ""));
+            intent.putExtra("mrp", safe(item.getMrp(), "0"));
+            intent.putExtra("sale_rate", safe(item.getSaleRate(), "0"));
+            intent.putExtra("unit_nm", safe(item.getUnitName(), ""));
+            intent.putExtra("avl_stock", safe(item.getAvlStock(), "0"));
 
-            // TEMP: single image → convert to list for slider
-            ArrayList<Integer> images = new ArrayList<>();
+            // =====================================================
+            // 🔹 IMAGE LIST (SINGLE → MULTI READY)
+            // =====================================================
+            ArrayList<String> images = new ArrayList<>();
 
-            images.add(R.drawable.nutbolt);
-            images.add(R.drawable.partsimg);
-            images.add(R.drawable.nutbolt);
-            images.add(R.drawable.partsimg);
+            if (imageUrl != null && !imageUrl.trim().isEmpty()) {
+                images.add(imageUrl);
+                Log.d(TAG, "Image added to slider list");
+            } else {
+                Log.e(TAG, "No image added to slider list");
+            }
 
-// pass via intent
-            intent.putIntegerArrayListExtra("images", images);
+            intent.putStringArrayListExtra("images", images);
+
             context.startActivity(intent);
         });
     }
@@ -207,9 +265,13 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return itemList == null ? 0 : itemList.size();
     }
 
-    // 🔹 Helper to prevent null / empty values (PER FIELD)
+    // =====================================================
+    // 🔹 NULL SAFETY
+    // =====================================================
     private String safe(String value, String fallback) {
-        return (value != null && !value.trim().isEmpty()) ? value : fallback;
+        return (value != null && !value.trim().isEmpty())
+                ? value
+                : fallback;
     }
 
     // =====================================================

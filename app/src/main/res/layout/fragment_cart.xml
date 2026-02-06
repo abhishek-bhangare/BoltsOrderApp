@@ -8,7 +8,7 @@
     android:background="#F8F8F8"
     tools:context=".CartScreen.CartFragment">
 
-    <!-- ⭐ Wishlist-style Top App Bar -->
+    <!-- Top App Bar -->
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarCart"
         android:layout_width="match_parent"
@@ -29,7 +29,7 @@
             android:paddingEnd="48dp"/>
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <!-- Scrollable Content -->
+    <!-- Scroll Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,7 +43,7 @@
             android:padding="12dp"
             android:orientation="vertical">
 
-            <!-- Delivery Address Card -->
+            <!-- Delivery Address -->
             <LinearLayout
                 android:id="@+id/layoutSelectAddress"
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"/>
 
-            <!-- Billing Section -->
+            <!-- ================= BILL DETAILS ================= -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -97,56 +97,52 @@
                     android:textStyle="bold"
                     android:textSize="16sp"/>
 
-                <LinearLayout
+                <!-- Total MRP -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Item Total"/>
+                        android:text="Total MRP"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/txtItemTotal"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
                         android:id="@+id/txtItemTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹0"/>
-                </LinearLayout>
+                        android:text="₹0"
+                        android:textStyle="bold"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
+                <!-- Taxes -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Delivery Fee"/>
-
-                    <TextView
-                        android:id="@+id/txtDeliveryFee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="₹30"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Taxes"/>
+                        android:text="Taxes"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/txtTaxes"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
                         android:id="@+id/txtTaxes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="₹12"/>
-                </LinearLayout>
+                        android:text="₹12"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <View
                     android:layout_width="match_parent"
@@ -154,17 +150,21 @@
                     android:background="#DDDDDD"
                     android:layout_marginTop="10dp"/>
 
-                <LinearLayout
+                <!-- Total Amount -->
+                <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp">
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Grand Total"
+                        android:text="Total Amount"
                         android:textStyle="bold"
-                        android:textSize="16sp"/>
+                        android:textSize="16sp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintEnd_toStartOf="@id/txtGrandTotal"
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
                         android:id="@+id/txtGrandTotal"
@@ -172,34 +172,14 @@
                         android:layout_height="wrap_content"
                         android:text="₹42"
                         android:textStyle="bold"
-                        android:textSize="16sp"/>
-                </LinearLayout>
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
             </LinearLayout>
 
-<!--            &lt;!&ndash; Savings Banner &ndash;&gt;-->
-<!--            <LinearLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:padding="16dp"-->
-<!--                android:layout_marginTop="16dp"-->
-<!--                android:background="#DFF8D8"-->
-<!--                android:orientation="horizontal"-->
-<!--                android:gravity="center_vertical">-->
-
-<!--                <ImageView-->
-<!--                    android:layout_width="20dp"-->
-<!--                    android:layout_height="20dp"-->
-<!--                    android:src="@drawable/ic_round_mic"/>-->
-
-<!--                <TextView-->
-<!--                    android:id="@+id/txtSavings"-->
-<!--                    android:layout_width="wrap_content"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:paddingStart="10dp"-->
-<!--                    android:text="You saved ₹120 on this order!"-->
-<!--                    android:textColor="#1B7A00"-->
-<!--                    android:textSize="15sp"/>-->
-<!--            </LinearLayout>-->
+            <!-- Place Order Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnProceed"
                 android:layout_width="match_parent"
@@ -207,11 +187,11 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="20dp"
                 android:layout_marginHorizontal="12dp"
-                android:text="Proceed"
+                android:text="Place Order"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:textColor="@android:color/white"
-                android:backgroundTint="#01AC66"
+                android:backgroundTint="@color/success"
                 app:cornerRadius="12dp"/>
         </LinearLayout>
     </ScrollView>

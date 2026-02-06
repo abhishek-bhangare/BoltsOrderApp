@@ -76,6 +76,7 @@
 //        // Next: loadItems(scateId);
 //    }
 //}
+
 package com.example.shoppingapp.CategoryItemsScreen;
 
 import android.content.Intent;
